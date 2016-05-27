@@ -697,7 +697,7 @@ This is the last piece of our puzzle. Let's decompile it:
 			is_dbg = 2 
   }
 ```
-
+___
 After all these, let's go back to main:
 
 ```assembly
@@ -720,6 +720,7 @@ After all these, let's go back to main:
 .text:00402B40
 .text:00402B40                   WRONG_402B40:                           ; CODE XREF: _main+17Aj
 ```
+___
 Ok now we have everything we need, except the values of the arrays that we use all this time:
 ```
 A = "\0\0......\0";
