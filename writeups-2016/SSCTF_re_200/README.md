@@ -1,12 +1,14 @@
 ## SSCTF 2016 - Re2 (Reversing 200)
 ##### 26/02 - 28/02/2016 (48hr)
+___
+First we open program with CFF explorer. We see that is compressed with UPX v3.0. We download UPX 
+and we decompress it. Then we open program in IDA pro.
 
-First we open program with CFF explorer. We see that is compressed with UPX v3.0. We download UPX and we decompress it. Then we open program in IDA pro.
-
-We have to deal with a multi-threading program.	The music and the animation are stored as resources in the program and get extracted and displayed during runtime. I won't analyze the code that does that, I'll only focus on the actual code.
+We have to deal with a multi-threading program.	The music and the animation are stored as resources
+in the program and get extracted and displayed during runtime. I won't analyze the code that does that,
+I'll only focus on the actual code.
 
 The first important function is 0x4022B0, which reads flag from stdin and spawn all threads.
-
 ```assembly
 .text:004022B7 57                    push    edi
 .text:004022B8 8B 3D 18 31 40 00     mov     edi, ds:printf
@@ -75,7 +77,8 @@ This is our first clue: Flags must be between 1 and 32 characters. After that we
 .text:00402726 C3                    retn
 ```
 
-After we create all threads we exit. Note that we create threads in suspended mode, so none of these threads will be executed. Going back in main(), if flag is between 1 and 32 characters, we start executing all threads:
+After we create all threads we exit. Note that we create threads in suspended mode, so none of these threads will
+be executed. Going back in main(), if flag is between 1 and 32 characters, we start executing all threads:
 ```assembly
 .text:00402A1E E8 8D F8 FF FF        call    spawn_threads_4022B0
 .text:00402A23 83 F8 01              cmp     eax, 1
@@ -83,15 +86,21 @@ After we create all threads we exit. Note that we create threads in suspended mo
 .text:00402A28 8D 4C 24 24           lea     ecx, [esp+44h+var_20]
 .text:00402A2C E8 CF FD FF FF        call    resume_threads_402800
 ```
-As you can guess, function 0x402800 resumes all of these suspended threads. Note that this is not the only job of this function. It also extacts the TXT resource and displays it (that's our animation). Now let's analyze our threads. Let A, B, C, D, E, F and G be some public arrays (we'll define them later). Whenever there are threads, there should be mutexes or some sort of synchronization. In this program, there's just 1 mutex, which ensures that only one thread each time will have access to any of the above arrrays. For simplicity, we ignore the mutex locks/unlocks in the code and we'll focus on the actual code that each thread executes. We know that every time only 1 thread does some useful progress. This means this code could have a single thread while keeping the same functionality. Let's see the threads:
-
+As you can guess, function 0x402800 resumes all of these suspended threads. Note that this is not the only job of this
+function. It also extacts the TXT resource and displays it (that's our animation). Now let's analyze our threads.
+Let A, B, C, D, E, F and G be some public arrays (we'll define them later). Whenever there are threads, there should
+be mutexes or some sort of synchronization. In this program, there's just 1 mutex, which ensures that only one thread
+each time will have access to any of the above arrrays. For simplicity, we ignore the mutex locks/unlocks in the code
+and we'll focus on the actual code that each thread executes. We know that every time only 1 thread does some useful
+progress. This means this code could have a single thread while keeping the same functionality. Let's see the threads:
+___
+**Thread routine #0 (0x401080):**
 ```c
-Thread routine #0 (0x401080):
 	flag[0] ^= A[0] ^ B[0] ^ is_dbg
 ```
-
+___
+**Thread routines #1 - #31 (0x401110 - 0x401A70):**
 ```assembly
-Thread routines #1 - #31 (0x401110 - 0x401A70):
 .text:00401110                   ; unsigned int __cdecl thrd_rtn_1_401110(void *)
 .text:00401110                   thrd_rtn_1_401110 proc near             ; DATA XREF: spawn_threads_4022B0+A4o
 .text:00401110
@@ -131,7 +140,8 @@ thread does:
 flag[tid] ^= B[tid] ^ A[tid] ^ is_dbg_1 
 (is_dbg_1 must be 0)
 ```
-Thread routine #32 (0x401ac0):
+___
+**Thread routine #32 (0x401ac0):**
 ```assembly
 .text:00401AC0 53                    push    ebx
 .text:00401AC1 56                    push    esi
@@ -194,9 +204,10 @@ Let's decompile it:
 	}
 	Start thread #33
 ```
-Thread routine #33 (0x401B30):
-```assembly
+___
+**Thread routine #33 (0x401B30):**
 This is a little bit tricky, because it uses bogus bytes to confuse dissasembler:
+```assembly
 .text:00401B58 75 63                 jnz     short loc_401BBD
 .text:00401B5A 74 61                 jz      short loc_401BBD
 .text:00401B5A                   ; ---------------------------------------------------------------------------
@@ -306,8 +317,8 @@ weird jumps back and forth, but after a while, there's the actual code:
 ```
 
 So if we decompile it, we get:
-The following must be true:
 ```c
+The following must be true:
 1. C[0] + C[1] + C[2] + C[3] == 0xDC
 2. C[0] ^ 0x66 == C[1] ^ 0x77 == C[3] ^ 0x6F == C[1] ^ C[2] ^ C[3] 
 
@@ -318,11 +329,11 @@ The following must be true:
 	
 	Start thread #34
 ```
-Thread routine #34 (0x00401CB0):
-
-```c
+___
+**Thread routine #34 (0x00401CB0):**
 This function is very similar with the previous one:
 
+```c
 	for( b=0, i=0; i<strlen(D); ++i )
 		b ^= D[i];
 
@@ -335,7 +346,8 @@ This function is very similar with the previous one:
 
 	Start thread #35
 ```
-Thread routine #35 (0x00401D50):
+___
+**Thread routine #35 (0x00401D50):**
 ```assembly
 .text:00401D50                   thrd_rtn_35_401D50 proc near            ; DATA XREF: spawn_threads_4022B0+3F6o
 .text:00401D50 56                    push    esi
@@ -414,8 +426,8 @@ Decompiling is also straightforward:
 
 	Start threads #36, #37, #38 and #39
 ```
-
-Thread routine #36 (0x00401DF0):
+___
+**Thread routine #36 (0x00401DF0):**
 This is also very similar to thread routine #34:
 ```c
 	for( i=0; i<strlen(G); ++i )
@@ -423,7 +435,8 @@ This is also very similar to thread routine #34:
 
 	Start threads #37 and #39
 ```
-Thread routine #37 (0x401E70):
+___
+**Thread routine #37 (0x401E70):**
 This is our antidebuging thread:
 ```c
 	Start threads #38 and #39
@@ -435,10 +448,10 @@ This is our antidebuging thread:
 
 		if program being debugged then
 			is_dbg = 2 
-  }
-}
+	}
 ```
-Thread routine #38 (0x401EF0):
+___
+**Thread routine #38 (0x401EF0):**
 
 This is where the main check is done. At a first glance it seems pretty complicated but it actually
 isn't. Let's focus on the most important parts:
@@ -669,8 +682,8 @@ Let's decompile that:
 		}
 	}
 ```		
-Thread routine #39 (0x402230):
-
+___
+**Thread routine #39 (0x402230):**
 This is the last piece of our puzzle. Let's decompile it:
 ```c
 	Start threads #37 and #38
@@ -683,8 +696,8 @@ This is the last piece of our puzzle. Let's decompile it:
 		if program being debugged then
 			is_dbg = 2 
   }
-}
 ```
+
 After all these, let's go back to main:
 
 ```assembly
@@ -708,7 +721,7 @@ After all these, let's go back to main:
 .text:00402B40                   WRONG_402B40:                           ; CODE XREF: _main+17Aj
 ```
 Ok now we have everything we need, except the values of the arrays that we use all this time:
-```c
+```
 A = "\0\0......\0";
 B = "c678d6g64307gf4g`b263473ge35b5`9";
 D = { 0xEC, 0xFC, 0x9E, 0xB9, 0xFC, 0xB3, 0xAE, 0xFC, 0x92, 0xB3, 0xA8, 0xFC, 0x88, 0xB3, 0xFC, 0x9E,
@@ -734,16 +747,16 @@ H = { 0xFD, 0xC5, 0xFD, 0xE7, 0xC5, 0xE7, 0xC7, 0xE5, 0xC7, 0xDD, 0xE5, 0xDD, 0 
 ```
 Now let's find the order of the threads:
 
-First, start threads #0 - #31
-Then start #32	
-\#32 -> #33
-\#33 -> #34
-\#34 -> #35
-\#35 -> #36, #37, #38, #39
-\#36 -> #37, #39
-\#37 -> #38, #39
-\#38 -> #37, #39
-\#39 -> #37, #39
+* First, start threads #0 - #31
+* Then start #32	
+* \#32 -> #33
+* \#33 -> #34
+* \#34 -> #35
+* \#35 -> #36, #37, #38, #39
+* \#36 -> #37, #39
+* \#37 -> #38, #39
+* \#38 -> #37, #39
+* \#39 -> #37, #39
 
 Now we can write donw the actual algorithm (note that array G and thread #36 not really used 
 anywhere):
@@ -786,11 +799,12 @@ anywhere):
 		}		
 	}
 ```
-After cracking the code, we can get some valid flags:
-
----
+After cracking the code (using the python script), we can get some valid flags:
+```
 Flag: t1yuec5dlxi93fjp5934x19g6wbxicxb
 Flag: pumqllrvawxa9ze6wut67mscnda7dkmp
 Flag: 8vgh7a14pe6hmdgbtd7e5k2ecmr5alyd
 Flag: neg9h9s8dt5gii8hu47czcssl92236ud
 Flag: xztvxxy8y481byy2i2z30kfe8zb71p0f
+```
+___
