@@ -136,7 +136,8 @@ Note the anti-debug trick here. All we have to do here, is simply to patch the I
 continue our analysis. Each of these threads access a different element of A, B and flag arrays. Each
 thread does:
 
-```c	flag[tid] ^= B[tid] ^ A[tid] ^ is_dbg_1 
+```c	
+flag[tid] ^= B[tid] ^ A[tid] ^ is_dbg_1 
 (is_dbg_1 must be 0)
 ```
 Thread routine #32 (0x401ac0):
