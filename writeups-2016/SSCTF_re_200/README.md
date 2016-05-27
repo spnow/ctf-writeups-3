@@ -83,13 +83,7 @@ After we create all threads we exit. Note that we create threads in suspended mo
 .text:00402A28 8D 4C 24 24           lea     ecx, [esp+44h+var_20]
 .text:00402A2C E8 CF FD FF FF        call    resume_threads_402800
 ```
-As you can guess, function 0x402800 resumes all of these suspended threads. Note that this is not the only job of this
-function. It also extacts the TXT resource and displays it (that's our animation). Now let's analyze our threads.
-Let A, B, C, D, E, F and G be some public arrays (we'll define them later). Whenever there are threads, there should
-be mutexes or some sort of synchronization. In this program, there's just 1 mutex, which ensures that only one thread
-each time will have access to any of the above arrrays. For simplicity, we ignore the mutex locks/unlocks in the code
-and we'll focus on the actual code that each thread executes. We know that every time only 1 thread does some useful
-progress. This means this code could have a single thread while keeping the same functionality. Let's see the threads:
+As you can guess, function 0x402800 resumes all of these suspended threads. Note that this is not the only job of this function. It also extacts the TXT resource and displays it (that's our animation). Now let's analyze our threads. Let A, B, C, D, E, F and G be some public arrays (we'll define them later). Whenever there are threads, there should be mutexes or some sort of synchronization. In this program, there's just 1 mutex, which ensures that only one thread each time will have access to any of the above arrrays. For simplicity, we ignore the mutex locks/unlocks in the code and we'll focus on the actual code that each thread executes. We know that every time only 1 thread does some useful progress. This means this code could have a single thread while keeping the same functionality. Let's see the threads:
 
 ```c
 Thread routine #0 (0x401080):
