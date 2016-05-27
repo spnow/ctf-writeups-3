@@ -1,12 +1,9 @@
 ## SSCTF 2016 - Re2 (Reversing 200)
-### 26/02 - 28/02/2016 (48hr)
+##### 26/02 - 28/02/2016 (48hr)
 
-First we open program with CFF explorer. We see that is compressed with UPX v3.0. We download UPX 
-and we decompress it. Then we open program in IDA pro.
+First we open program with CFF explorer. We see that is compressed with UPX v3.0. We download UPX and we decompress it. Then we open program in IDA pro.
 
-We have to deal with a multi-threading program.	The music and the animation are stored as resources
-in the program and get extracted and displayed during runtime. I won't analyze the code that does that,
-I'll only focus on the actual code.
+We have to deal with a multi-threading program.	The music and the animation are stored as resources in the program and get extracted and displayed during runtime. I won't analyze the code that does that, I'll only focus on the actual code.
 
 The first important function is 0x4022B0, which reads flag from stdin and spawn all threads.
 
@@ -53,6 +50,7 @@ The first important function is 0x4022B0, which reads flag from stdin and spawn 
 .text:00402332 85 C9                 test    ecx, ecx
 .text:00402334 0F 8E ED 03 00 00     jle     RET_0_402727
 ```
+
 This is our first clue: Flags must be between 1 and 32 characters. After that we spawn 39 threads:
 ```assembly
 .text:0040233A 50                    push    eax                         ; struct _SECURITY_ATTRIBUTES *
@@ -77,8 +75,7 @@ This is our first clue: Flags must be between 1 and 32 characters. After that we
 .text:00402726 C3                    retn
 ```
 
-After we create all threads we exit. Note that we create threads in suspended mode, so none of these threads will
-be executed. Going back in main(), if flag is between 1 and 32 characters, we start executing all threads:
+After we create all threads we exit. Note that we create threads in suspended mode, so none of these threads will be executed. Going back in main(), if flag is between 1 and 32 characters, we start executing all threads:
 ```assembly
 .text:00402A1E E8 8D F8 FF FF        call    spawn_threads_4022B0
 .text:00402A23 83 F8 01              cmp     eax, 1
