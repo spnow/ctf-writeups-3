@@ -172,5 +172,7 @@ root@vasilikoula:~/ctf/dctf# (echo -e "GET /?id=0x666f6f3b206c73202d6c6100&usr=2
 All we have to do is to access that strange file:
 
 http://10.13.37.5/6e8218531e0580b6754b3e3be5252873.txt
+
+
 **DCTF{19b1f9f19688da85ec52a735c8da0dd3}**
 ___
