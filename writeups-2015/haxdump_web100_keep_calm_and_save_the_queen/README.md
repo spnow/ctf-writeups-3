@@ -7,6 +7,7 @@ The Queen's own online web portal thing!
  			 godsavethequeen.haxdump.com
 			 godsavethequeen.tar.xz
 ___
+### Solution
 
 We have the source. Let's look at the injection point (index.php):
 ```php

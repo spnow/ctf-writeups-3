@@ -12,6 +12,8 @@ Are you dreaming of becoming a Milli$_$naire?
 Come to sell some electronics!
 ```
 ___
+### Solution
+
 A detailed solution is within the exploit file.
 
 ```

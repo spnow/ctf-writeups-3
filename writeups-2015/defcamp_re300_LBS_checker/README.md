@@ -1,6 +1,8 @@
 ## D-CTF 2015 - LBS Checker (Reversing 300)
 ##### 02/10 - 04/10/2015 (36hr)
 ___
+### Solution
+
 This is a little harder challenge. The goal is to find the password of Administrator. However there
 are some checks that don't allow the program do that. The first protection is to see whether
 password contains "A". If so, we exit:

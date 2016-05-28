@@ -5,6 +5,8 @@ ___
 ### Description: 
 http://146.148.60.107:9991/
 ___
+### Solution
+
 
 It's a classic SQLi on INSERT statement:
 ```

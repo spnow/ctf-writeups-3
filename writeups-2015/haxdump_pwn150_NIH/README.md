@@ -8,6 +8,7 @@ so don't bother trying to outsmart it.
 
 Running at nih.haxdump.com port 9111
 ___
+### Solution
 
 A quick look on the source code shows that there are no "exploitable" bugs. We have a proxy server
 here. What this means? The proxy may has access to some other machine in the internal network.

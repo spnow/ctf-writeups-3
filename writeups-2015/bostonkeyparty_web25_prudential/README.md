@@ -5,6 +5,8 @@ ___
 ### Description: 
 I dont think that sha1 is broken. Prove me wrong.
 ___
+### Solution
+
 That's a type confusion and not a collision on SHA1. If we supply sha1() with an non-string argument
 then it will return NULL. Because NULL === NULL, we'll get the flag. Let's set name and password to
 arrays - must be different to bypass the first check - and get the flag:

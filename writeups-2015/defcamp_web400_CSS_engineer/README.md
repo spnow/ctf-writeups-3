@@ -5,6 +5,7 @@ ___
 ### Description:  
 http://10.13.37.5
 ___
+### Solution
 
 We start by playing around with id and usr parameters. If we look at the source code we will see
 a php file being the source of an image. Hmmmm how this code could be? the php should have something

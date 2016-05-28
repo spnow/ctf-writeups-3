@@ -1,6 +1,7 @@
 ## D-CTF 2015 - Link & Switch (Reversing 200)
 ##### 02/10 - 04/10/2015 (36hr)
 ___
+### Solution
 
 We'll use IDA pro for this challenge. First of all let's get rid of anti debugging protections:
 ```assembly
