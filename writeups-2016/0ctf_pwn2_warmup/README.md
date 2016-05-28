@@ -117,5 +117,5 @@ gives fd to the files in sequential order. So we can start from 3 (0=stdin, 1=st
 until we guess it. But for fd=3 we have a solution :)
 
 The python code shows very clearly the rop chain for this attack. After we execute the code we
-get the flag: **0ctf{welcome_it_is_pwning_time} **
+get the flag: **0ctf{welcome_it_is_pwning_time}**
 ___
