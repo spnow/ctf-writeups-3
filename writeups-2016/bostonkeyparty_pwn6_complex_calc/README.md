@@ -97,6 +97,7 @@ be the address of the 1st fake chunk). Because the size of the chunk (0x21, will
 The last challenge is how to set add_res and mul_ans to 0x21. Because input numbers must be 
 > 0x27, we have to use some very large numbers that will overflow and the result will be
 very small. So:
+
 ```
 add_1   = 0xffffff80 
 add_2   = 0xa1
@@ -106,8 +107,9 @@ mul_1   = 0x80000001
 mul_2   = 0x80000021
 mul_ans = 0x4000001100000021 = 0x21
 ```
-Now we can write our exploit and get the flag **BKPCTF{th3 l4st 1 2 3z}**
 
+
+Now we can write our exploit and get the flag **BKPCTF{th3 l4st 1 2 3z}**
 
 ```
 root@xrysa:~/ctf/bostonkeyparty# ./complex_calc_expl.py 
