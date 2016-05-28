@@ -118,4 +118,21 @@ until we guess it. But for fd=3 we have a solution :)
 
 The python code shows very clearly the rop chain for this attack. After we execute the code we
 get the flag: **0ctf{welcome_it_is_pwning_time}**
+
+```
+root@xrysa:~/ctf/0ctf# ./warmup_expl_remote.py 
+	Welcome to 0CTF 2016!
+	Good Luck!
+	Welcome to 0CTF 2016!
+	[..... TRUNCATED FOR BREVITY .....]
+	Good Luck!
+	Welcome to 0CTF 2016!
+	Good Luck!
+	Welcome to 0CTF 2016!
+	Good Luck!
+	Welcome to 0CTF 2016!
+	Good Luck!
+	0ctf{welcome_it_is_pwning_time}
+	.build-id.text
+```
 ___
