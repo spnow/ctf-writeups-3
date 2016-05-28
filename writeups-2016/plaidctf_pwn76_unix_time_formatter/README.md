@@ -202,7 +202,7 @@ the timezone and time_format buffers, and then we ask user if he really wants to
 answer no, program will return to the main loop, but the pointers will be stale.
 
 We can do a UAF attack as follows:
-``
+```
 	[1]. We allocate a buffer for format string and we set a bogus format
 
 	[2]. We free this memory leaving the time_format_602118 stale
@@ -215,6 +215,7 @@ We can do a UAF attack as follows:
 
 	[5]. We get the flag: PCTF{use_after_free_isnt_so_bad}
 ```
+
 
 By running the exploit we can get our flag:
 
