@@ -3,7 +3,6 @@
 ##### 05/09 - 07/09/2015 (48hr)
 ___
 ### Description: 
-This uploader deletes all /<\?|php/. So you cannot run php.
 
 http://magiagents.chal.mmactf.link/
 ___
