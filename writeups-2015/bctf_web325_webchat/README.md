@@ -32,6 +32,6 @@ From the logs we can see the flag in referral:
 http://127.0.0.1:9991/review?pass=QkNURnt4c3NfaXNfbm90X3RoYXRfZGlmZmljdWx0X3JpZ2h0fQ==&id=40379
 ```
 
-We decode the pass: QkNURnt4c3NfaXNfbm90X3RoYXRfZGlmZmljdWx0X3JpZ2h0fQ== and we get the flag: 
+We base64 decode the pass: QkNURnt4c3NfaXNfbm90X3RoYXRfZGlmZmljdWx0X3JpZ2h0fQ== and we get the flag: 
 **BCTF{xss_is_not_that_difficult_right}**
 ___
