@@ -240,7 +240,7 @@ root@xrysa:~/ctf/plaidctf# ./unix_time_format_expl.py
 	
 root@xrysa:~/ctf/plaidctf# ./unix_time_format_expl.py 
 	Your formatted time is: QQQQ
-	**PCTF{use_after_free_isnt_so_bad}**
+	PCTF{use_after_free_isnt_so_bad}
 	1) Set a time format.
 	2) Set a time.
 	3) Set a time zone.
