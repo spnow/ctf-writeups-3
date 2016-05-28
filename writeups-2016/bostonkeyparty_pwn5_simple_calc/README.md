@@ -133,5 +133,5 @@ root@xrysa:~/ctf/bostonkeyparty# ./simple_calc_expl.py
 		BKPCTF{what_is_2015_minus_7547}
 	exit
 	*** Connection closed by remote host ***
-	```
+```
 ___
