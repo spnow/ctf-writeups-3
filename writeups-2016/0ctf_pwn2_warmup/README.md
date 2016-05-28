@@ -8,7 +8,7 @@ ___
 Notice: This service is protected by a sandbox, you can only read the flag  at /home/warmup/flag
 
 202.120.7.207 52608
-
+___
 ### Solution
 
 The binary for that challenge was pretty small. Attacking small binaries is generally easier as
