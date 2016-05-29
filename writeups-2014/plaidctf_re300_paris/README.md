@@ -1,5 +1,5 @@
 ## Plaid CTF 2014  - paris (RE 300) (VM crackme)
-##### 14/09/2014 (20hr)
+##### 11-13/04/2014 (48hr)
 ___
 
 ### Description: 
