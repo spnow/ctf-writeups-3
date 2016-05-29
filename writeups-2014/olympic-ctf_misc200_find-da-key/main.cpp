@@ -1,7 +1,7 @@
 // ------------------------------------------------------------------------------------------------
 /*
 **  Olympic CTF - stego challenge
-**  penthackon - s3Rious
+**  penthackon - ispo
 **  8 Feb 2014
 **
 **  Challenge  : find the hidden message from the s[] table.
