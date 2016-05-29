@@ -1,4 +1,4 @@
-## DEFCAMP CTF 2014 - Network 300
+## DEFCAMP CTF 2014 - Knock me (Network 300)
 
 ##### 18-20/10/2014 (48hr)
 ___
