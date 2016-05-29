@@ -34,6 +34,7 @@ Let's set the ip to localhost (127.0.0.1):
 ```
 
 Change the from: ``` Cookie: valid_user=test; loc=c869d000ef5c6fdfa128b058d2865512; ```
+
 to:              ``` Cookie: valid_user=admin;loc=f528764d624db129b32c21fbca0cb8d6; ```
 
 Finally make a request to:
