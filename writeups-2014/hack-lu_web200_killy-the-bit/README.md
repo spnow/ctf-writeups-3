@@ -98,10 +98,10 @@ like to has a column for the password. Let's try common names for password colum
 		&submit=Generate#
 ```
 
-After many requests, we get the flag: **flag{Killy_The_Bit_Is_Wanted_for_9000_$$_FoR_FlipPing_Bits}.**
+After many requests, we get the flag: **flag{Killy_The_Bit_Is_Wanted_for_9000_$$_FoR_FlipPing_Bits}**.
 
-___	
 
+___
 After getting the flag, the authors post the following hints:
 Hint: Blind SQLi is not a good solution. You can get the correct and complete flag with one single request!
 Hint: The password's column name is 'passwd'.
