@@ -72,7 +72,7 @@ Now, let's start by finding the database name. The query we insert is:
 	
 Where the variable $_i_$ gets the values 1,2,3... and the variable $_mask_$ the values 128,
 64,32,16,8,4,2 and 1. After executing the script (see below) we can get the database name:
-``
+```
 	ctf-level
 ```
 	
@@ -90,6 +90,7 @@ But we want admin's password. We have a table, and it has 2 columns "name" and "
 like to has a column for the password. Let's try common names for password columns: "pass", "pw", 
 "passwd", "password" (cannot be used -> contains 'or'). We find that the correct column name is
 "passwd". Now let's get the admin's password:
+
 ```
 	?name='+UNION+ALL+SELECT+name,email+
 		FROM+user+
